@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -29,15 +31,19 @@ namespace Worker.Data
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var builder = new ConfigurationBuilder()
-                                .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("appsettings.json");
-            var configuration = builder.Build();
-            //optionsBuilder.UseSqlServer(configuration[""]);
-            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\LP-AbdallahA\source\repos\Worker\Worker\WorkerDB.mdf;Integrated Security=True");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    //string conn=String.Empty;
+        //    //var builder = new ConfigurationBuilder()
+        //    //                    .SetBasePath(Directory.GetCurrentDirectory())
+        //    //                    .AddJsonFile("appsettings.json");
+        //    //var configuration = builder.Build();
+        //    //    //configuration.Providers.FirstOrDefault(p => p.TryGet("ConnectionStrings",out conn));
+        //    // var c=   configuration.Pro viders.FirstOrDefault();
+        //    // c.
+        //    //optionsBuilder.UseSqlServer(conn);
+        //    optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\LP-AbdallahA\source\repos\Worker\Worker\WorkerDB.mdf;Integrated Security=True");
+        //}
     }
 
     public class BundleDetail

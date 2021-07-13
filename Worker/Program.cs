@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsNetCore.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Worker.Data;
+using Worker.Services;
 
 namespace Worker
 {
@@ -48,8 +48,8 @@ namespace Worker
         private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
             //services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            //services.AddDbContext<WorkerContext>(s => s.UseSqlServer(@"Data Source=WorkerDB.mdf"), ServiceLifetime.Transient);
-            services.AddScoped<ISampleService, SampleService>();
+            services.AddDbContext<WorkerContext>(s => s.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\LP-AbdallahA\source\repos\Worker\Worker\WorkerDB.mdf;Integrated Security=True"), ServiceLifetime.Transient);
+            services.AddScoped<IWorkerService, WorkerService>();
 
             services.AddSingleton<MainForm>();
             //services.AddTransient<SecondForm>();
