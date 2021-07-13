@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Worker.Data;
+using Worker.Helpers;
 using Worker.Services;
 
 namespace Worker
@@ -19,22 +20,17 @@ namespace Worker
     public partial class MainForm : Form
     {
         private readonly IWorkerService _workerService;
-        private readonly IConfiguration _configuration;
-        private readonly AppSettings _settings;
 
 
-        public MainForm(IWorkerService workerService, IConfiguration configuration, IOptions<AppSettings> settings)
+        public MainForm(IWorkerService workerService)
         {
             InitializeComponent();
             _workerService = workerService;
-            _configuration = configuration;
-            _settings = settings.Value;
         }
 
         private void TestButton_Click(object sender, EventArgs e)
         {
 
-            var tes = _settings.WorkerDb;
             var db = _workerService.GetBundleWithDetails(1);
 
             //Test for static path
@@ -75,17 +71,15 @@ namespace Worker
             //processes.Add(externalProcess4);
 
             var bundles = db.BundleDetails.ToList();
+            ProcessManager processManager = new ProcessManager();
 
 
             foreach (var bundle in bundles)
             {
-                Process externalProcess = new Process
-                {
-
-                    StartInfo = { FileName = bundle.Name, WindowStyle = ProcessWindowStyle.Maximized, UseShellExecute = true }
-                };
-                externalProcess.Start();
+                processManager.AddProcess(bundle.Name);
             }
+
+            processManager.ExcecuteProcesses();
 
         }
     }
