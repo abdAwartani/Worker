@@ -9,18 +9,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsNetCore.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Worker
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+
+        private readonly ISampleService _sameplSerivce;
+        private readonly IConfiguration _configuration;
+        private readonly AppSettings _settings;
+
+        public MainForm(ISampleService sameplSerivce, IConfiguration configuration, IOptions<AppSettings> settings)
         {
             InitializeComponent();
+            _sameplSerivce = sameplSerivce;
+            _configuration = configuration;
+            _settings = settings.Value;
         }
 
         private void TestButton_Click(object sender, EventArgs e)
         {
+
+            label1.Text = _sameplSerivce.GetCurrentDate();
+            var tes = _settings.WorkerDb;
+
             //Test for static path
             List<Process> processes = new List<Process>();
 
