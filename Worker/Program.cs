@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace Worker
 {
     static class Program
     {
+        private static IConfigurationRoot _configuration;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -25,11 +27,13 @@ namespace Worker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            string conn = String.Empty;
+            var builder = new ConfigurationBuilder()
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appsettings.json");
+            _configuration = builder.Build();
+
             var host = Host.CreateDefaultBuilder()
-                //.ConfigureAppConfiguration((context, builder) =>
-                //{
-                //    builder.AddJsonFile("appsettings.local.json", optional: true);
-                //})
                 .ConfigureServices((context, services) =>
                 {
                     ConfigureServices(context.Configuration, services);
@@ -44,15 +48,33 @@ namespace Worker
             var mainForm = services.GetRequiredService<MainForm>();
             Application.Run(mainForm);
         }
-
+        
         private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
             //services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.AddDbContext<WorkerContext>(s => s.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\LP-AbdallahA\source\repos\Worker\Worker\WorkerDB.mdf;Integrated Security=True"), ServiceLifetime.Transient);
+            services.AddDbContext<WorkerContext>(s => s.UseSqlServer(GetConnectionStringPath()), ServiceLifetime.Transient);
             services.AddScoped<IWorkerService, WorkerService>();
 
             services.AddSingleton<MainForm>();
             //services.AddTransient<SecondForm>();
+        }
+
+        private static string GetConnectionStringPath()
+        {
+            string executableName = Application.ExecutablePath;
+            FileInfo executableFileInfo = new FileInfo(executableName);
+            string parentName = executableFileInfo.Directory.Parent.FullName;
+            string dbPath = string.Empty;
+            if (parentName.Contains("bin\\Debug"))
+            { 
+                dbPath = parentName.Replace("bin\\Debug", "Data\\WorkerDB.mdf");
+            }
+            else
+            {
+                dbPath = parentName.Replace("bin\\Release", "Data\\WorkerDB.mdf");
+            }
+            string connectionString = string.Format(_configuration.GetConnectionString("WorkerDB"), dbPath);
+            return connectionString;
         }
     }
 }
