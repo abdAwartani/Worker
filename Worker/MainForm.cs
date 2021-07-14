@@ -82,7 +82,7 @@ namespace Worker
                 Process externalProcess = new Process
                 {
 
-                    StartInfo = { FileName = bundle.Name, WindowStyle = ProcessWindowStyle.Maximized, UseShellExecute = true }
+                    StartInfo = { FileName = bundle.ProcessName, WindowStyle = ProcessWindowStyle.Maximized, UseShellExecute = true }
                 };
                 externalProcess.Start();
             }
