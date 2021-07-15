@@ -86,5 +86,18 @@ namespace Worker
             processExecuter.Execute();
 
         }
+
+        private void LoadBundle_Click(object sender, EventArgs e)
+        {
+            LoadAllBundleWithDetials();
+        }
+
+        private void LoadAllBundleWithDetials()
+        {
+            var bundles = _workerService.GetAllBundlesWithDetails();
+            gvAllBundle.DataSource = bundles.Select(s => new {bundleId = s.Id, bundleName = s.Name}).ToList();
+            gvBundleDetails.DataSource = bundles.SelectMany(s => s.BundleDetails).Select(d =>
+                new {BundleName = bundles.FirstOrDefault(b => b.Id == d.BundleId).Name, processName = d.Name}).ToList();
+        }
     }
 }

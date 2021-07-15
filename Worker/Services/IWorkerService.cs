@@ -9,6 +9,8 @@ namespace Worker.Services
 {
     public interface IWorkerService
     {
+        IEnumerable<Bundle> GetAllBundles();
+        IEnumerable<Bundle> GetAllBundlesWithDetails();
         Bundle GetBundle(int id);
         Bundle GetBundleWithDetails(int id);
         void InsertBundle(int id);

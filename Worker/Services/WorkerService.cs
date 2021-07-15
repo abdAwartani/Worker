@@ -17,6 +17,15 @@ namespace Worker.Services
         {
             _workerContext = workerContext;
         }
+
+        public IEnumerable<Bundle> GetAllBundles()
+        {
+            return _workerContext.Bundles.ToList();
+        } 
+        public IEnumerable<Bundle> GetAllBundlesWithDetails()
+        {
+            return _workerContext.Bundles.Include(d=>d.BundleDetails).ToList();
+        }
         public Bundle GetBundle(int id)
         {
             return _workerContext.Bundles.FirstOrDefault(b => b.Id == id);

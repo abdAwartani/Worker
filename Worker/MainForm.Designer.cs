@@ -29,46 +29,74 @@ namespace Worker
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnTest = new System.Windows.Forms.Button();
+            this.btnLoadBundle = new System.Windows.Forms.Button();
+            this.gvAllBundle = new System.Windows.Forms.DataGridView();
+            this.gvBundleDetails = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.gvAllBundle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvBundleDetails)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnTest
             // 
-            this.button1.Location = new System.Drawing.Point(76, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Test";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.TestButton_Click);
+            this.btnTest.Location = new System.Drawing.Point(713, 415);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 0;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.TestButton_Click);
             // 
-            // label1
+            // btnLoadBundle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(333, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.btnLoadBundle.Location = new System.Drawing.Point(71, 12);
+            this.btnLoadBundle.Name = "btnLoadBundle";
+            this.btnLoadBundle.Size = new System.Drawing.Size(180, 23);
+            this.btnLoadBundle.TabIndex = 1;
+            this.btnLoadBundle.Text = "Load All Bundle with Details";
+            this.btnLoadBundle.UseVisualStyleBackColor = true;
+            this.btnLoadBundle.Click += new System.EventHandler(this.LoadBundle_Click);
+            // 
+            // gvAllBundle
+            // 
+            this.gvAllBundle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvAllBundle.Location = new System.Drawing.Point(12, 57);
+            this.gvAllBundle.Name = "gvAllBundle";
+            this.gvAllBundle.RowTemplate.Height = 25;
+            this.gvAllBundle.Size = new System.Drawing.Size(275, 150);
+            this.gvAllBundle.TabIndex = 2;
+            // 
+            // gvBundleDetails
+            // 
+            this.gvBundleDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvBundleDetails.Location = new System.Drawing.Point(361, 57);
+            this.gvBundleDetails.Name = "gvBundleDetails";
+            this.gvBundleDetails.RowTemplate.Height = 25;
+            this.gvBundleDetails.Size = new System.Drawing.Size(432, 150);
+            this.gvBundleDetails.TabIndex = 3;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.gvBundleDetails);
+            this.Controls.Add(this.gvAllBundle);
+            this.Controls.Add(this.btnLoadBundle);
+            this.Controls.Add(this.btnTest);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            ((System.ComponentModel.ISupportInitialize)(this.gvAllBundle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvBundleDetails)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.Button btnLoadBundle;
+        private System.Windows.Forms.DataGridView gvAllBundle;
+        private System.Windows.Forms.DataGridView gvBundleDetails;
     }
 }
