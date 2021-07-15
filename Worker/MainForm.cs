@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Worker.Data;
+using Worker.Helper;
 using Worker.Services;
 
 namespace Worker
@@ -76,16 +77,13 @@ namespace Worker
 
             var bundles = db.BundleDetails.ToList();
 
+            ProcessExecuter processExecuter = new ProcessExecuter();
 
             foreach (var bundle in bundles)
             {
-                Process externalProcess = new Process
-                {
-
-                    StartInfo = { FileName = bundle.ProcessName, WindowStyle = ProcessWindowStyle.Maximized, UseShellExecute = true }
-                };
-                externalProcess.Start();
+                processExecuter.AddProcess(bundle.ProcessName);
             }
+            processExecuter.Execute();
 
         }
     }
