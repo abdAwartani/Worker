@@ -1,13 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Configuration;
+using Worker.Helper;
 
 namespace Worker.Data
 {
@@ -15,9 +10,9 @@ namespace Worker.Data
     {
         public WorkerContext()
         {
-                
+
         }
-        public WorkerContext(DbContextOptions<WorkerContext> options):base(options)
+        public WorkerContext(DbContextOptions<WorkerContext> options) : base(options)
         {
         }
 
@@ -33,24 +28,8 @@ namespace Worker.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var builder = new ConfigurationBuilder()
-            //    .SetBasePath(Directory.GetCurrentDirectory())
-            //    .AddJsonFile("appsettings.json");
-            //var _configuration = builder.Build();
-            // string executableName = Application.ExecutablePath;
-            //FileInfo executableFileInfo = new FileInfo(executableName);
-            //string parentName = executableFileInfo.Directory.Parent.FullName;
-            //string dbPath = string.Empty;
-            //if (parentName.Contains("bin\\Debug"))
-            //{ 
-            //    dbPath = parentName.Replace("bin\\Debug", "Data\\WorkerDB.mdf");
-            //}
-            //else
-            //{
-            //    dbPath = parentName.Replace("bin\\Release", "Data\\WorkerDB.mdf");
-            //}
-            //string connectionString = string.Format(_configuration.GetConnectionString("WorkerDB"), dbPath);
-            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\LP-AbdallahA\source\repos\Worker\Worker\Data\WorkerDB.mdf;Integrated Security=True");
+            ConfigurationHelper _configuration = new ConfigurationHelper();
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionStringPath());
         }
     }
 
@@ -62,7 +41,7 @@ namespace Worker.Data
 
         [Required]
         public string Name { get; set; }
-        
+
         [Required]
         public string ProcessName { get; set; }
 
