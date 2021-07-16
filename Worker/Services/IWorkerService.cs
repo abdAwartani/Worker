@@ -13,8 +13,9 @@ namespace Worker.Services
         IEnumerable<Bundle> GetAllBundlesWithDetails();
         Bundle GetBundle(int id);
         Bundle GetBundleWithDetails(int id);
-        void InsertBundle(int id);
+        void AddBundle(Bundle bundle);
         void RemoveBundle(int id);
         void UpdateBundle(int id);
+        void AddBundleDetails(BundleDetail bundleDet);
     }
 }

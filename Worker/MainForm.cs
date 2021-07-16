@@ -20,12 +20,14 @@ namespace Worker
     public partial class MainForm : Form
     {
         private readonly IWorkerService _workerService;
+        private readonly AddBundleForm _addBundleForm;
 
-
-        public MainForm(IWorkerService workerService)
+        public MainForm(IWorkerService workerService, AddBundleForm addBundleForm)
         {
             InitializeComponent();
             _workerService = workerService;
+            _addBundleForm = addBundleForm;
+             _addBundleForm.refreshMainForm += LoadBundle_Click;
         }
 
         private void TestButton_Click(object sender, EventArgs e)
@@ -93,6 +95,18 @@ namespace Worker
             gvAllBundle.DataSource = bundles.Select(s => new {bundleId = s.Id, bundleName = s.Name}).ToList();
             gvBundleDetails.DataSource = bundles.SelectMany(s => s.BundleDetails).Select(d =>
                 new {BundleName = bundles.FirstOrDefault(b => b.Id == d.BundleId).Name, processName = d.Name}).ToList();
+        }
+
+        private void AddNewBundle_Click(object sender, EventArgs e)
+        {
+            _addBundleForm.SetFormPropert(Enums.AddbundleMode.AddBundel);
+            _addBundleForm.Show();
+        }
+
+        private void AddNewBundleDetails_Click(object sender, EventArgs e)
+        {
+            _addBundleForm.SetFormPropert(Enums.AddbundleMode.AddBundelDetails);
+            _addBundleForm.Show();
         }
     }
 }

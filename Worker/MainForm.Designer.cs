@@ -33,6 +33,8 @@ namespace Worker
             this.btnLoadBundle = new System.Windows.Forms.Button();
             this.gvAllBundle = new System.Windows.Forms.DataGridView();
             this.gvBundleDetails = new System.Windows.Forms.DataGridView();
+            this.btnAddNewBundle = new System.Windows.Forms.Button();
+            this.btnAddNewBundleBundle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gvAllBundle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvBundleDetails)).BeginInit();
             this.SuspendLayout();
@@ -75,11 +77,33 @@ namespace Worker
             this.gvBundleDetails.Size = new System.Drawing.Size(432, 150);
             this.gvBundleDetails.TabIndex = 3;
             // 
+            // btnAddNewBundle
+            // 
+            this.btnAddNewBundle.Location = new System.Drawing.Point(71, 228);
+            this.btnAddNewBundle.Name = "btnAddNewBundle";
+            this.btnAddNewBundle.Size = new System.Drawing.Size(180, 24);
+            this.btnAddNewBundle.TabIndex = 4;
+            this.btnAddNewBundle.Text = "Add New Bundle";
+            this.btnAddNewBundle.UseVisualStyleBackColor = true;
+            this.btnAddNewBundle.Click += new System.EventHandler(this.AddNewBundle_Click);
+            // 
+            // button1
+            // 
+            this.btnAddNewBundleBundle.Location = new System.Drawing.Point(502, 228);
+            this.btnAddNewBundleBundle.Name = "btnAddNewBundleBundle";
+            this.btnAddNewBundleBundle.Size = new System.Drawing.Size(208, 23);
+            this.btnAddNewBundleBundle.TabIndex = 5;
+            this.btnAddNewBundleBundle.Text = "Add New Bundle Bundle";
+            this.btnAddNewBundleBundle.UseVisualStyleBackColor = true;
+            this.btnAddNewBundleBundle.Click += new System.EventHandler(this.AddNewBundleDetails_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAddNewBundleBundle);
+            this.Controls.Add(this.btnAddNewBundle);
             this.Controls.Add(this.gvBundleDetails);
             this.Controls.Add(this.gvAllBundle);
             this.Controls.Add(this.btnLoadBundle);
@@ -98,5 +122,7 @@ namespace Worker
         private System.Windows.Forms.Button btnLoadBundle;
         private System.Windows.Forms.DataGridView gvAllBundle;
         private System.Windows.Forms.DataGridView gvBundleDetails;
+        private System.Windows.Forms.Button btnAddNewBundle;
+        private System.Windows.Forms.Button btnAddNewBundleBundle;
     }
 }

@@ -36,9 +36,10 @@ namespace Worker.Services
             return _workerContext.Bundles.Include(d=>d.BundleDetails).FirstOrDefault(b => b.Id == id);
         }
 
-        public void InsertBundle(int id)
+        public void AddBundle(Bundle bundle)
         {
-            throw new NotImplementedException();
+            _workerContext.Add(bundle);
+            _workerContext.SaveChanges();
         }
 
         public void RemoveBundle(int id)
@@ -49,6 +50,12 @@ namespace Worker.Services
         public void UpdateBundle(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddBundleDetails(BundleDetail bundleDet)
+        {
+            _workerContext.Add(bundleDet);
+            _workerContext.SaveChanges();
         }
     }
 

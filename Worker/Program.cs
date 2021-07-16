@@ -54,6 +54,7 @@ namespace Worker
             services.AddScoped<IWorkerService, WorkerService>();
 
             services.AddSingleton<MainForm>();
+            services.AddSingleton<AddBundleForm>();
         }
 
         
