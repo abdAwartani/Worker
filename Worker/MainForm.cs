@@ -105,6 +105,7 @@ namespace Worker
 
         private void AddNewBundleDetails_Click(object sender, EventArgs e)
         {
+           
             _addBundleForm.SetFormPropert(Enums.AddbundleMode.AddBundelDetails);
             _addBundleForm.Show();
         }

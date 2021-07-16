@@ -14,6 +14,7 @@ namespace Worker
 {
     public partial class AddBundleForm : Form
     {
+        public static AddBundleForm addBundleForm;
         public delegate void MyEventHandler(object sender, EventArgs e);
         public event MyEventHandler refreshMainForm;
         private readonly IWorkerService _workerService;
@@ -22,6 +23,7 @@ namespace Worker
         {
             InitializeComponent();
             _workerService = workerService;
+            addBundleForm = this;
         }
 
         private void BtnAddBundle_Click(object sender, EventArgs e)
@@ -61,7 +63,8 @@ namespace Worker
                     txtProcessCommand.Enabled = true;
                     txtProcessName.Enabled = true;
                     btnAddbundleDetails.Enabled = true;
-
+                    var bundles = _workerService.GetAllBundlesWithDetails();
+                    this.cobxBundle.DataSource = bundles.Select(s => new { bundleId = s.Id, bundleName = s.Name }).ToList();
                     break;
                 default:
                     break;
