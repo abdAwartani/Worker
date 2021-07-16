@@ -1,13 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Configuration;
+using Worker.Helper;
 
 namespace Worker.Data
 {
@@ -15,9 +10,9 @@ namespace Worker.Data
     {
         public WorkerContext()
         {
-                
+
         }
-        public WorkerContext(DbContextOptions<WorkerContext> options):base(options)
+        public WorkerContext(DbContextOptions<WorkerContext> options) : base(options)
         {
         }
 
@@ -31,19 +26,11 @@ namespace Worker.Data
         }
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //string conn=String.Empty;
-        //    //var builder = new ConfigurationBuilder()
-        //    //                    .SetBasePath(Directory.GetCurrentDirectory())
-        //    //                    .AddJsonFile("appsettings.json");
-        //    //var configuration = builder.Build();
-        //    //    //configuration.Providers.FirstOrDefault(p => p.TryGet("ConnectionStrings",out conn));
-        //    // var c=   configuration.Pro viders.FirstOrDefault();
-        //    // c.
-        //    //optionsBuilder.UseSqlServer(conn);
-        //    optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\LP-AbdallahA\source\repos\Worker\Worker\WorkerDB.mdf;Integrated Security=True");
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            ConfigurationHelper _configuration = new ConfigurationHelper();
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionStringPath());
+        }
     }
 
     public class BundleDetail
@@ -54,6 +41,10 @@ namespace Worker.Data
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public string ProcessName { get; set; }
+
 
         public int BundleId { get; set; }
     }

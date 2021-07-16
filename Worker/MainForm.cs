@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Worker.Data;
-using Worker.Helpers;
+using Worker.Helper;
 using Worker.Services;
 
 namespace Worker
@@ -73,14 +73,27 @@ namespace Worker
             var bundles = db.BundleDetails.ToList();
             ProcessManager processManager = new ProcessManager();
 
+            ProcessExecuter processExecuter = new ProcessExecuter();
 
             foreach (var bundle in bundles)
             {
-                processManager.AddProcess(bundle.Name);
+                processExecuter.AddProcess(bundle.ProcessName);
             }
+            processExecuter.Execute();
 
-            processManager.ExcecuteProcesses();
+        }
 
+        private void LoadBundle_Click(object sender, EventArgs e)
+        {
+            LoadAllBundleWithDetials();
+        }
+
+        private void LoadAllBundleWithDetials()
+        {
+            var bundles = _workerService.GetAllBundlesWithDetails();
+            gvAllBundle.DataSource = bundles.Select(s => new {bundleId = s.Id, bundleName = s.Name}).ToList();
+            gvBundleDetails.DataSource = bundles.SelectMany(s => s.BundleDetails).Select(d =>
+                new {BundleName = bundles.FirstOrDefault(b => b.Id == d.BundleId).Name, processName = d.Name}).ToList();
         }
     }
 }
