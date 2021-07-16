@@ -71,7 +71,6 @@ namespace Worker
             //processes.Add(externalProcess4);
 
             var bundles = db.BundleDetails.ToList();
-            ProcessManager processManager = new ProcessManager();
 
             ProcessExecuter processExecuter = new ProcessExecuter();
 
