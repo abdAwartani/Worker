@@ -28,6 +28,7 @@ namespace Worker
             _workerService = workerService;
             _addBundleForm = addBundleForm;
              _addBundleForm.refreshMainForm += LoadBundle_Click;
+            LoadAllBundleWithDetials();
         }
 
         private void TestButton_Click(object sender, EventArgs e)
@@ -95,6 +96,8 @@ namespace Worker
             gvAllBundle.DataSource = bundles.Select(s => new {bundleId = s.Id, bundleName = s.Name}).ToList();
             gvBundleDetails.DataSource = bundles.SelectMany(s => s.BundleDetails).Select(d =>
                 new {BundleName = bundles.FirstOrDefault(b => b.Id == d.BundleId).Name, processName = d.Name}).ToList();
+            _addBundleForm.bundles = bundles.ToList();
+            _addBundleForm.cobxBundle.DataSource = bundles.Select(s => s.Name ).ToList();
         }
 
         private void AddNewBundle_Click(object sender, EventArgs e)

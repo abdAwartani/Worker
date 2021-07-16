@@ -18,6 +18,7 @@ namespace Worker
         public delegate void MyEventHandler(object sender, EventArgs e);
         public event MyEventHandler refreshMainForm;
         private readonly IWorkerService _workerService;
+        public List<Bundle> bundles = new List<Bundle>();
 
         public AddBundleForm(IWorkerService workerService)
         {
@@ -63,8 +64,7 @@ namespace Worker
                     txtProcessCommand.Enabled = true;
                     txtProcessName.Enabled = true;
                     btnAddbundleDetails.Enabled = true;
-                    var bundles = _workerService.GetAllBundlesWithDetails();
-                    this.cobxBundle.DataSource = bundles.Select(s => new { bundleId = s.Id, bundleName = s.Name }).ToList();
+                    
                     break;
                 default:
                     break;
@@ -74,8 +74,8 @@ namespace Worker
         private void btnAddbundleDetails_Click(object sender, EventArgs e)
         {
             //if (string.IsNullOrWhiteSpace(txtBundleName.Text)) MessageBox.Show("fill bundle name first!");
-
-            BundleDetail bundleDet = new BundleDetail() { Name = txtBundleName.Text, ProcessName = txtProcessCommand.Text, BundleId = (int)cobxBundle.SelectedItem };
+            int selectedbundle = bundles.FirstOrDefault(b => b.Name == (string)cobxBundle.SelectedItem).Id;
+            BundleDetail bundleDet = new BundleDetail() { Name = txtProcessName.Text, ProcessName = txtProcessCommand.Text, BundleId = selectedbundle };
             _workerService.AddBundleDetails(bundleDet);
             this.Close();
 

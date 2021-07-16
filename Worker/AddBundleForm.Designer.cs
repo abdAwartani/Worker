@@ -158,7 +158,7 @@ namespace Worker
         private System.Windows.Forms.TextBox txtProcessName;
         private System.Windows.Forms.TextBox txtProcessCommand;
         private System.Windows.Forms.Button btnAddbundleDetails;
-        private System.Windows.Forms.ComboBox cobxBundle;
+        public System.Windows.Forms.ComboBox cobxBundle;
         private System.Windows.Forms.Label lblCoBxBundleName;
     }
 }
