@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Worker.Data;
 
 namespace Worker.Helper
 {
@@ -21,6 +22,20 @@ namespace Worker.Helper
                 StartInfo = { FileName = processCommand, WindowStyle = ProcessWindowStyle.Maximized, UseShellExecute = true }
             });
         }
+        
+        public void AddRangeProcess(List<BundleDetail> bundleDetails)
+        {
+            processes ??= new List<Process>();
+            foreach (var bundle in bundleDetails)
+            {
+                processes.Add(new Process()
+                {
+
+                    StartInfo = { FileName = bundle.ProcessName, WindowStyle = ProcessWindowStyle.Maximized, UseShellExecute = true }
+                });
+            }
+        }
+
 
 
         public void Execute()

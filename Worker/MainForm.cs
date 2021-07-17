@@ -112,5 +112,15 @@ namespace Worker
             _addBundleForm.SetFormPropert(Enums.AddbundleMode.AddBundelDetails);
             _addBundleForm.Show();
         }
+
+        private void gvAllBundle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var gridView = sender as DataGridView;
+            var selectedValue =  gridView.Rows[e.RowIndex].Cells[0].Value;
+            var Bundels = _workerService.GetBundleWithDetails((int) selectedValue);
+            var processExec = new ProcessExecuter();
+            processExec.AddRangeProcess(Bundels.BundleDetails.ToList());
+            processExec.Execute();
+        }
     }
 }
